@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转木马</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="wrap" id="wrap">
+        <div class="slide" id="slide">
+            <ul id="ul1">
+                <li class="one"><a href="http:#"><img src="./images/bingbing.jpg" alt=""></a></li>
+                <li class="two"><a href="http:#"><img src="./images/lingengxin.jpg" alt=""></a></li>
+                <li class="three"><a href="http:#"><img src="./images/yuanyuan.png" alt=""></a></li>
+                <li class="four"><a href="http:#"><img src="./images/slidepic4.jpg" alt=""></a></li>
+                <li class="five"><a href="http:#"><img src="./images/slidepic5.jpg" alt=""></a></li>
+            </ul>
+            <div class="arrow" id="arrow">
+                <a href="javascript:;" class="prev" id="arrLeft"></a>
+                <a href="javascript:;" class="next" id="arrRight"></a>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./animation.js"></script>
+
+<script>
+/*
+1.分析需求(交互)：
+2.思路分析（事件三要素）
+获取元素：事件源：
+注册事件：事件类型
+事件处理：
+*/
+
+//0.将每一个元素样式放入数组中
+var config = [
+      {
+        "width": 400,
+        "top": 20,
+        "left": 50,
+        "opacity": 0.2,
+        "zIndex": 2
+      },//0
+      {
+        "width": 600,
+        "top": 70,
+        "left": 0,
+        "opacity": 0.8,
+        "zIndex": 3
+      },//1
+      {
+        "width": 800,
+        "top": 100,
+        "left": 200,
+        "opacity": 1,
+        "zIndex": 4
+      },//2
+      {
+        "width": 600,
+        "top": 70,
+        "left": 600,
+        "opacity": 0.8,
+        "zIndex": 3
+      },//3
+      {
+        "width": 400,
+        "top": 20,
+        "left": 750,
+        "opacity": 0.2,
+        "zIndex": 2
+      }//4
+    ];
+
+
+//获取元素
+var wrap = document.getElementById('wrap');
+var ul1 = document.getElementById('ul1');
+var slide = document.getElementById('slide');
+var arrow = document.getElementById('arrow');
+var arrLeft = document.getElementById('arrLeft');
+var arrRight = document.getElementById('arrRight');
+
+//注册事件
+
+//鼠标移入
+wrap.onmouseover = function(){
+    //显示arrow盒子
+    arrow.style.display = 'block';
+}
+//鼠标移出
+wrap.onmouseout = function(){
+    //显示arrow盒子
+    arrow.style.display = '';
+}
+
+//下一页
+arrRight.onclick = function(){
+    //将config数组的最后一个元素移动到最前面
+    config.unshift(config.pop());
+    for(var i = 0;i < ul1.children.length;i++){
+        animationSlow(ul1.children[i],config[i]);
+    }
+}
+//上一页
+arrLeft.onclick = function(){
+    //将config数组的最后一个元素移动到最前面
+    config.push(config.shift());
+    for(var i = 0;i < ul1.children.length;i++){
+        animationSlow(ul1.children[i],config[i]);
+    }
+}
+
+</script>
+</html>
